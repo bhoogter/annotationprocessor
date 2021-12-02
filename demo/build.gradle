@@ -1,0 +1,62 @@
+buildscript {
+    repositories {
+        google(); mavenCentral()
+        flatDir dirs: "${rootDir}/lib"
+    }
+    dependencies {
+        classpath "com.benjaminhoogterp:addopens:1.0"
+    }
+}
+
+plugins {
+    id "java"
+    id "java-library"
+}
+
+apply plugin: "addopens"
+
+sourceCompatibility = JavaVersion.VERSION_11
+targetCompatibility = JavaVersion.VERSION_11
+
+repositories {
+    google(); mavenCentral()
+}
+
+dependencies {
+    annotationProcessor project(":annotationprocessor")
+    implementation project(":annotationprocessor")
+
+    annotationProcessor files("lib/tools-1.5.0.jar")
+    api files("lib/tools-1.5.0.jar")
+    // Add as required...
+}
+
+//// Required for Java 16+
+//compileJava {
+////    options.fork = true
+//    options.compilerArgs += [
+//            "--add-opens", "jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED",
+//            "--add-opens", "jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED",
+//            "--add-opens", "jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED",
+//            "--add-opens", "jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED",
+//            "--add-opens", "jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED",
+//            "--add-opens", "jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED",
+//            "--add-opens", "jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED",
+//            "--add-opens", "jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED",
+//            "--add-opens", "jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED",
+//            "--add-opens", "jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED",
+//            "--add-opens", "java.prefs/java.util.prefs=ALL-UNNAMED",
+//
+//            "--add-exports", "jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED",
+//            "--add-exports", "jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED",
+//            "--add-exports", "jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED",
+//            "--add-exports", "jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED",
+//            "--add-exports", "jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED",
+//            "--add-exports", "jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED",
+//            "--add-exports", "jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED",
+//            "--add-exports", "jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED",
+//            "--add-exports", "jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED",
+//            "--add-exports", "jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED",
+//            "--add-exports", "java.prefs/java.util.prefs=ALL-UNNAMED",
+//    ]
+//}

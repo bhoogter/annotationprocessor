@@ -1,0 +1,43 @@
+plugins {
+    id "java"
+    id "java-library"
+    // Possibly add 'maven-publish' if you're pushing the jar to a repository
+}
+
+repositories {
+    google(); mavenCentral()
+}
+
+dependencies {
+    annotationProcessor "com.google.auto.service:auto-service:1.0.1"
+    implementation "com.google.auto.service:auto-service:1.0.1"
+
+    annotationProcessor files("lib/tools-1.5.0.jar")
+    api files("lib/tools-1.5.0.jar")
+    // Add as required...
+}
+
+compileJava {
+    options.compilerArgs << "--add-opens=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED"
+    options.compilerArgs << "--add-opens=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED"
+    options.compilerArgs << "--add-opens=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED"
+    options.compilerArgs << "--add-opens=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED"
+    options.compilerArgs << "--add-opens=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED"
+    options.compilerArgs << "--add-opens=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED"
+    options.compilerArgs << "--add-opens=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED"
+    options.compilerArgs << "--add-opens=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED"
+    options.compilerArgs << "--add-opens=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED"
+    options.compilerArgs << "--add-opens=jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED"
+    options.compilerArgs << "--add-opens=java.prefs/java.util.prefs=ALL-UNNAMED"
+    options.compilerArgs << "--add-exports=jdk.compiler/com.sun.tools.javac.code=ALL-UNNAMED"
+    options.compilerArgs << "--add-exports=jdk.compiler/com.sun.tools.javac.comp=ALL-UNNAMED"
+    options.compilerArgs << "--add-exports=jdk.compiler/com.sun.tools.javac.file=ALL-UNNAMED"
+    options.compilerArgs << "--add-exports=jdk.compiler/com.sun.tools.javac.main=ALL-UNNAMED"
+    options.compilerArgs << "--add-exports=jdk.compiler/com.sun.tools.javac.model=ALL-UNNAMED"
+    options.compilerArgs << "--add-exports=jdk.compiler/com.sun.tools.javac.parser=ALL-UNNAMED"
+    options.compilerArgs << "--add-exports=jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED"
+    options.compilerArgs << "--add-exports=jdk.compiler/com.sun.tools.javac.tree=ALL-UNNAMED"
+    options.compilerArgs << "--add-exports=jdk.compiler/com.sun.tools.javac.util=ALL-UNNAMED"
+    options.compilerArgs << "--add-exports=jdk.compiler/com.sun.tools.javac.jvm=ALL-UNNAMED"
+    options.compilerArgs << "--add-exports=java.prefs/java.util.prefs=ALL-UNNAMED"
+}
