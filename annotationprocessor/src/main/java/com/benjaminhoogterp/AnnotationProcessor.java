@@ -99,6 +99,12 @@ public class AnnotationProcessor extends AbstractProcessor {
         final String recordWrapParams = "recordTraceParams(java.lang.Object...)";
         final String recordReturnValue = "recordReturnValue(java.lang.Object)";
 
+        // NOTE: This prevents compiler assertion errors on the `Bits.incl` method.
+        //       Without this, `.sym` and `.sym.adr` are left at zero and the assertion fails.
+        //       Apparently:  "But the newVar() is called by visitVarDef() only if tree.sym is trackable"
+        //       https://stackoverflow.com/questions/46874126/java-lang-assertionerror-thrown-by-compiler-when-adding-generated-method-with-pa
+        make.at(decl.pos);
+
         Attribute value = anno.attribute.member(names.fromString("recordParams"));
         boolean annoDoParams = value == null || value.toString().equals(trueValue);
         value = anno.attribute.member(names.fromString("recordResult"));
